@@ -68,8 +68,8 @@ BakuFlow/
 ### Quick Start
 ```bash
 # Clone the repository
-git clone https://github.com/bakuai/bakuflow.git
-cd bakuflow
+git clone https://github.com/bakuai-as/BakuFlow.git
+cd BakuFlow
 
 # Install dependencies
 pip install -r requirements.txt
@@ -232,7 +232,7 @@ BakuAI AS, Norway (2024)
 
 **Technical Support**
 - 📧 Email: post@bakuai.no
-- 🐛 Issues: [GitHub Issues](https://github.com/bakuai/bakuflow/issues)
+- 🐛 Issues: [GitHub Issues](https://github.com/bakuai-as/BakuFlow/issues)
 - 💬 Community: [Discord Server](https://discord.gg/bakuai)
 
 **Contributing**
@@ -258,7 +258,7 @@ BakuAI AS, Norway (2024)
 
 ---
 
-*Made with ❤️ by BakuAI Team - Making Professional Annotation Simple* 
+*Made with ❤️ by BakuAI Team - Making Professional Annotation Simple*
 
 ## 🙏 Acknowledgments
 
@@ -280,4 +280,4 @@ BakuAI AS, Norway (2024)
       primaryClass={cs.CV},
       url={https://arxiv.org/abs/2503.07465}, 
 }
-``` 
+```
