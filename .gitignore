@@ -43,7 +43,7 @@ Thumbs.db
 *.log
 
 # Test files
-test_*.py
+# test_*.py  # 註解掉，因為 test_yoloe_setup.py 是官方測試檔案
 debug_*.py
 temp_*
 *_test.*
@@ -191,8 +191,13 @@ dmypy.json
 .pyre/
 
 # Project specific
-# Exclude YOLOE submodule directory
+# Exclude YOLOE submodule directory (will be installed by setup script)
 labelimg/yoloe/
+
+# But include our custom patches and setup
+!yoloe_patches/
+!setup_yoloe.py
+!test_yoloe_setup.py
 
 # Model files (too large for git)
 *.pt
