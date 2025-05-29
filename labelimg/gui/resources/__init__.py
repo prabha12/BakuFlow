@@ -1,0 +1,1 @@
+# Đây là file __init__.py cho package labelimg.gui.resources 
