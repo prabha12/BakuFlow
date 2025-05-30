@@ -44,11 +44,11 @@
 ### 🎨 Professional Workflow
 - **🏷️ Dynamic Class Management**: Hot-swappable classes with visual color coding
 - **🎨 Intelligent Color Legend**: Auto-generated, resizable legend with class statistics
-- **📋 Smart Label Propagation**: Copy annotations across similar images intelligently
+- **📋 Label Propagation**: Copy annotations across sequential and consecutive images 
 - **💾 Bulletproof Auto-Save**: Never lose work with intelligent background saving
 
-### 🌐 Enterprise-Grade UX
-- **⌨️ Power User Shortcuts**: 20+ keyboard shortcuts for lightning-fast workflows
+### 🌐 Enterprise-Grade UX 
+- **⌨️ Power User Shortcuts**: 10+ keyboard shortcuts for lightning-fast workflows
 - **🌍 Global Localization**: 8 languages with intelligent locale detection
 - **🖥️ Responsive UI**: Adaptive interface optimized for any screen size
 - **🎛️ Advanced Data Augmentation**: Built-in batch transformations with preview
