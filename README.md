@@ -7,9 +7,10 @@
 
 **BakuFlow** is a cutting-edge image annotation tool that revolutionizes object detection dataset creation. Developed by BakuAI AS (2024), it seamlessly combines traditional manual labeling with state-of-the-art AI-powered automatic annotation, making professional-grade annotation accessible to everyone.
 
-![BakuFlow Demo](https://img.shields.io/badge/Demo-Coming%20Soon-orange?style=for-the-badge)(https://youtu.be/7Oxswjlb-7o)
+![BakuFlow Demo](https://github.com/user-attachments/assets/66d7e52d-1124-465e-9622-439462bac042)](https://youtu.be/7Oxswjlb-7o)
 
----
+
+ ---
 
 ## 🌟 Why BakuFlow?
 
