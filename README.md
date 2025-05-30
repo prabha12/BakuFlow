@@ -9,8 +9,6 @@
 
 ![BakuFlow Demo](https://img.shields.io/badge/Demo-Coming%20Soon-orange?style=for-the-badge)(https://youtu.be/7Oxswjlb-7o)
 
-[![Rick Astley - Never Gonna Give You Up](https://github.com/user-attachments/assets/66d7e52d-1124-465e-9622-439462bac042)](https://youtu.be/7Oxswjlb-7o)
-
 ---
 
 ## 🌟 Why BakuFlow?
