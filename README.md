@@ -341,14 +341,16 @@ This software is released under a custom license with the following terms:
 ### Academic Acknowledgment
 
 For academic use, please include this acknowledgment:
-```
-BakuFlow developed by BakuAI AS (2024) - "Professional Annotation Made Simple"
-```
-
-For publications using this software, please cite:
-```
-BakuFlow: AI-Powered Image Annotation Tool for Object Detection
-BakuAI AS, Norway (2024)
+```bibtex
+@misc{linbakuflow2025,
+      title={BakuFlow: A Streamlining Semi-Automatic Label Generation Tool}, 
+      author={Jerry Lin and Partick P. W. Chen},
+      year={2025},
+      eprint={2503.07465},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2503.07465}, 
+}
 ```
 
 ---
