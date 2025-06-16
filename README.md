@@ -360,7 +360,6 @@ For academic use, please include this acknowledgment:
 **Technical Support**
 - 📧 Email: post@bakuai.no
 - 🐛 Issues: [GitHub Issues](https://github.com/bakuai-as/BakuFlow/issues)
-- 💬 Community: [Discord Server](https://discord.gg/bakuai)
 
 **Contributing**
 - Pull requests and issues are welcome!
