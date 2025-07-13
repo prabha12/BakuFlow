@@ -3,7 +3,7 @@ import os
 import argparse
 from PyQt5.QtWidgets import QApplication
 from labelimg.controller.label_controller import LabelController
-from labelimg.gui.main_window import MainWindow
+from labelimg.gui.main_window import LabelingTool as MainWindow
 
 def main():
     parser = argparse.ArgumentParser(description='批量自動標註工具')
@@ -20,11 +20,14 @@ def main():
     
     # 加載類別定義
     if os.path.exists(args.class_file):
-        main_window.load_classes(args.class_file)
+        # main_window.load_classes(args.class_file)
+        main_window.loadClasses(args.class_file)
     else:
         print(f"錯誤: 類別文件不存在: {args.class_file}")
         return
         
+    print("Loading classes done")
+    
     # 獲取提示圖像
     prompt_images = []
     for filename in os.listdir(args.prompt_dir):
@@ -45,6 +48,7 @@ def main():
     # 創建控制器
     controller = LabelController(main_window)
     
+    print("Label controller created and going to handle")
     # 執行批量自動標註
     try:
         controller.handle_batch_auto_label_with_vp(prompt_images, args.target_dir)

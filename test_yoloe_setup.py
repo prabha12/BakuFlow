@@ -154,30 +154,33 @@ def test_model_loading():
 def check_dependencies():
     """Check if required dependencies are installed"""
     print_status("Checking Python dependencies...", "INFO")
-    
+    import sys
+    print_status(f"Python executable: {sys.executable}", "INFO")
+    print_status(f"sys.path: {sys.path}", "INFO")
+
     required_packages = [
-        "torch",
-        "torchvision", 
-        "numpy",
-        "opencv-python",
-        "ultralytics",
-        "huggingface-hub"
+        ("torch", "torch"),
+        ("torchvision", "torchvision"),
+        ("numpy", "numpy"),
+        ("opencv-python", "cv2"),
+        ("ultralytics", "ultralytics"),
+        ("huggingface-hub", "huggingface_hub")
     ]
-    
+
     missing_packages = []
-    
-    for package in required_packages:
+
+    for pip_name, import_name in required_packages:
         try:
-            __import__(package.replace("-", "_"))
-            print_status(f"Found package: {package}", "SUCCESS")
+            __import__(import_name)
+            print_status(f"Found package: {pip_name}", "SUCCESS")
         except ImportError:
-            print_status(f"Missing package: {package}", "ERROR")
-            missing_packages.append(package)
-    
+            print_status(f"Missing package: {pip_name}", "ERROR")
+            missing_packages.append(pip_name)
+
     if missing_packages:
         print_status(f"Install missing packages: pip install {' '.join(missing_packages)}", "INFO")
         return False
-    
+
     return True
 
 def main():
@@ -228,4 +231,13 @@ def main():
 
 if __name__ == "__main__":
     success = main()
-    sys.exit(0 if success else 1) 
+    sys.exit(0 if success else 1)
+
+# Patch: Ensure subprocess uses UTF-8 encoding if used in this script
+import subprocess as _subprocess
+_old_run = _subprocess.run
+def _patched_run(*args, **kwargs):
+    if 'encoding' not in kwargs:
+        kwargs['encoding'] = 'utf-8'
+    return _old_run(*args, **kwargs)
+_subprocess.run = _patched_run

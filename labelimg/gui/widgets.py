@@ -5,7 +5,9 @@ import cv2
 import numpy as np
 import os
 import random # For DataAugmentationDialog
-from PyQt5.QtWidgets import QFileDialog # For DataAugmentationDialog
+from PyQt5.QtWidgets import QFileDialog
+
+from labelimg.core.bounding_box import BoundingBox # For DataAugmentationDialog
 from ..core.localization import tr
 import shutil
 
@@ -574,7 +576,7 @@ class AutoLabelDialog(QDialog):
         prompt_layout = QVBoxLayout()
         
         self.prompt_list = QListWidget()
-        self.update_prompt_list()
+        #self.update_prompt_list()
         self.prompt_list.setSelectionMode(QListWidget.MultiSelection)
         prompt_layout.addWidget(self.prompt_list)
         
@@ -585,7 +587,10 @@ class AutoLabelDialog(QDialog):
         self.auto_label_all_btn = QPushButton(tr("auto_label_all_unlabeled"))
         self.auto_label_all_btn.clicked.connect(self.auto_label_all)
         layout.addWidget(self.auto_label_all_btn)
-
+        
+        ##Added from above commented line to debug
+        self.update_prompt_list()
+        ##
         # 取消按钮
         cancel_btn = QPushButton(tr("cancel"))
         cancel_btn.clicked.connect(self.reject)
@@ -617,6 +622,7 @@ class AutoLabelDialog(QDialog):
                 item = QListWidgetItem(f"{filename} ({bbox_count} {tr('objects')})")
                 item.setForeground(QColor(0, 128, 0))  # 绿色表示已标注
                 self.prompt_list.addItem(item)
+        
         
         self.auto_label_all_btn.setEnabled(len(self.labeled_indices) > 0)
         

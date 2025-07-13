@@ -470,13 +470,24 @@ class LabelingTool(QMainWindow):
             else:
                 item.setForeground(QColor(0, 0, 0))
 
-    def loadClasses(self):
-        class_path = os.path.join(getattr(self, 'current_dir', ''), 'classes.txt')
-        import shutil
+    def loadClasses(self, class_path=None):
+        """Load classes from specified file or default location"""
+        if class_path is None:
+            class_path = os.path.join(getattr(self, 'current_dir', ''), 'classes.txt')
+        # Add this check right after loading classes
+        
+        
+
         if not os.path.exists(class_path):
-            reply = QMessageBox.question(self, tr("no_classes_file_title"), tr("no_classes_file"), QMessageBox.Yes | QMessageBox.No)
+            # Your existing logic for when file doesn't exist
+            reply = QMessageBox.question(self, tr("no_classes_file_title"), 
+                                        tr("no_classes_file"), 
+                                        QMessageBox.Yes | QMessageBox.No)
             if reply == QMessageBox.Yes:
-                file_path_selected, _ = QFileDialog.getOpenFileName(self, tr("select_class_file_title"), self.current_dir if hasattr(self, 'current_dir') else "", tr("text_files_filter"))
+                file_path_selected, _ = QFileDialog.getOpenFileName(
+                    self, tr("select_class_file_title"), 
+                    self.current_dir if hasattr(self, 'current_dir') else "", 
+                    tr("text_files_filter"))
                 if file_path_selected:
                     try:
                         shutil.copy(file_path_selected, class_path)
@@ -488,15 +499,16 @@ class LabelingTool(QMainWindow):
                 else:
                     self.classes = []
             else:
-                text, ok = QInputDialog.getMultiLineText(self, tr("enter_classes_title"), tr("enter_classes_prompt"))
+                text, ok = QInputDialog.getMultiLineText(self, tr("enter_classes_title"), 
+                                                        tr("enter_classes_prompt"))
                 if ok and text.strip():
-                    # 分行處理
                     self.classes = [line.strip() for line in text.splitlines() if line.strip()]
                     try:
                         with open(class_path, 'w', encoding='utf-8') as f:
                             f.write("\n".join(self.classes) + "\n")
                     except Exception as e:
-                        QMessageBox.warning(self, tr("class_save_failed_title"), tr("failed_to_write_classes").format(str(e)))
+                        QMessageBox.warning(self, tr("class_save_failed_title"), 
+                                        tr("failed_to_write_classes").format(str(e)))
                 else:
                     self.classes = []
         else:
@@ -504,13 +516,13 @@ class LabelingTool(QMainWindow):
                 with open(class_path, 'r', encoding='utf-8') as f:
                     self.classes = [line.strip() for line in f if line.strip()]
             except Exception as e:
-                 QMessageBox.warning(self, tr("load_error_title"), f"Failed to read {class_path}: {e}")
-                 self.classes = []
+                QMessageBox.warning(self, tr("load_error_title"), 
+                                f"Failed to read {class_path}: {e}")
+                self.classes = []
+        
         self.class_combo.clear()
         self.class_combo.addItems(self.classes)
         self.updateColorLegend()
-        
-        # 在类别加载后初始化或更新YOLOEWrapper
         self._init_or_update_yoloe_wrapper()
 
     def _init_or_update_yoloe_wrapper(self):

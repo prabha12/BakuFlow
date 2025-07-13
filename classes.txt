@@ -1,0 +1,10 @@
+SpeedLimit100
+SpeedLimit120
+SpeedLimit40
+SpeedLimit60
+SpeedLimit80
+Dont_Go_Straight
+Dont_Turn_Left
+Dont_Turn_Right
+Dont_UTurn_Left
+Dont_UTurn_Right

@@ -29,8 +29,9 @@ def run_command(cmd, description=""):
     print_status(f"Command: {cmd}", "INFO")
     
     try:
-        result = subprocess.run(cmd, shell=True, check=True, 
-                              capture_output=True, text=True)
+        # Always use utf-8 encoding to avoid UnicodeDecodeError on Windows
+        result = subprocess.run(cmd, shell=True, check=True,
+                                capture_output=True, text=True, encoding="utf-8")
         if result.stdout:
             print(result.stdout)
         return True

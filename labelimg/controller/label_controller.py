@@ -43,7 +43,8 @@ class LabelController:
         """
         name_to_id = {}
         id_to_name = {}
-        
+        print("main window" + str(self.main_window))
+        print("label_hist" + str(self.main_window.label_hist))
         if hasattr(self.main_window, 'label_hist') and self.main_window.label_hist:
             class_names = self.main_window.label_hist
             name_to_id = {name: i for i, name in enumerate(class_names)}
