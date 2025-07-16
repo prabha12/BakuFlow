@@ -146,55 +146,27 @@ def apply_bakuflow_patches():
 
 def download_models():
     """Download pre-trained models"""
-    print_status("Step 4: Downloading pre-trained models...", "INFO")
-    
-    # Create pretrain directory
-    pretrain_dir = "pretrain"
-    os.makedirs(pretrain_dir, exist_ok=True)
-    
-    # Check if huggingface-hub is installed
-    try:
-        import huggingface_hub
-    except ImportError:
-        print_status("Installing huggingface-hub...", "INFO")
-        success = run_command(
-            "pip install huggingface-hub==0.26.3",
-            "Installing huggingface-hub"
-        )
-        if not success:
-            print_status("Failed to install huggingface-hub", "ERROR")
-            return False
-    
-    # Download models
-    models = [
-        "yoloe-v8l-seg.pt",
-        "yoloe-11l-seg.pt"
-    ]
-    
-    for model in models:
-        model_path = f"{pretrain_dir}/{model}"
-        if os.path.exists(model_path):
-            print_status(f"Model already exists: {model}", "INFO")
-            continue
-        
-        print_status(f"Downloading {model}...", "INFO")
-        success = run_command(
-            f"huggingface-cli download jameslahm/yoloe {model} --local-dir {pretrain_dir}",
-            f"Downloading {model}"
-        )
-        
-        if success:
-            print_status(f"Downloaded: {model}", "SUCCESS")
-        else:
-            print_status(f"Failed to download: {model}", "WARNING")
-    
+    print_status("Step 4: Skipping model download. Using only local pretrain/yoloe-v8l-seg.pt.", "INFO")
     return True
 
 def verify_installation():
     """Verify the installation"""
     print_status("Step 5: Verifying installation...", "INFO")
     
-    # Run the test script
+    # 1. Check that the patch was applied
+    patched_file = "labelimg/yoloe/ultralytics/models/yolo/yoloe/predict_vp.py"
+    if not os.path.exists(patched_file):
+        print_status(f"Patched file not found: {patched_file}", "ERROR")
+        return False
+    with open(patched_file, "r", encoding="utf-8") as f:
+        contents = f.read()
+    # 2. Check for hardcoded class count (e.g., '74')
+    if "74" in contents:
+        print_status("Warning: Hardcoded class count '74' found in patched file!", "WARNING")
+        return False
+    else:
+        print_status("No hardcoded class count found in patched file.", "SUCCESS")
+    # 3. Run the test script
     if os.path.exists("test_yoloe_setup.py"):
         print_status("Running verification test...", "INFO")
         success = run_command(

@@ -861,6 +861,10 @@ class LabelingTool(QMainWindow):
             
         img_path = self.image_list[self.current_index]
         txt_path = os.path.splitext(img_path)[0] + '.txt'
+        ## Ensure txt_path uses the correct path separator
+        # Added this to avoid error in Windows
+        txt_path = txt_path.replace('/', os.sep)
+         
         print(f"[Debug] 准备保存标注到: {txt_path}")
         
         if self.current_image is None: 

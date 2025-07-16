@@ -63,7 +63,7 @@ def calculate_iou(box1, box2):
     return iou
 
 class YOLOEWrapper:
-    def __init__(self, model_path="/Users/patrick/Desktop/labeling/pretrain/yoloe-11l-seg.pt", 
+    def __init__(self, model_path="pretrain/yoloe-v8l-seg.pt", 
                  class_names=None):
         """初始化 YOLOE 模型
         
@@ -1244,7 +1244,7 @@ def test_debug_class_mapping():
     
     # 创建测试实例
     wrapper = YOLOEWrapper(
-        model_path="/Users/patrick/Desktop/labeling/pretrain/yoloe-11l-seg.pt",
+        model_path="/Users/patrick/Desktop/labeling/pretrain/yoloe-v8l-seg.pt",
         class_names=['energydrink', 'pepsiMax', 'cocacola']  # 示例类别名称
     )
     
