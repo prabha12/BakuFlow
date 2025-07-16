@@ -83,10 +83,8 @@ def check_model_files():
     print_status("Checking model files...", "INFO")
     
     model_files = [
-        "pretrain/yoloe-v8l-seg.pt",
-        "pretrain/yoloe-11l-seg.pt",
-        "pretrain/yoloe-v8s-seg.pt",
-        "pretrain/yoloe-v8m-seg.pt"
+        "pretrain/yoloe-v8l-seg.pt"
+        
     ]
     
     found_models = []
@@ -105,7 +103,9 @@ def check_model_files():
         print_status("No model files found!", "ERROR")
         print_status("Download models with:", "INFO")
         print_status("pip install huggingface-hub", "INFO")
+        #print_status("huggingface-cli download jameslahm/yoloe yoloe-v8l-seg.pt --local-dir pretrain", "INFO")
         print_status("huggingface-cli download jameslahm/yoloe yoloe-v8l-seg.pt --local-dir pretrain", "INFO")
+       #print_status("huggingface-cli download jameslahm/yoloe yoloe-11l-seg-pf.pt --local-dir pretrain", "INFO")
         return False
     
     return True
@@ -116,10 +116,10 @@ def test_model_loading():
     
     # Find available model
     model_files = [
-        "pretrain/yoloe-v8l-seg.pt",
-        "pretrain/yoloe-11l-seg.pt",
-        "pretrain/yoloe-v8s-seg.pt",
-        "pretrain/yoloe-v8m-seg.pt"
+        
+        "pretrain/yoloe-v8l-seg.pt"
+        
+        #"pretrain/yoloe-v8m-seg.pt"
     ]
     
     available_model = None

@@ -69,7 +69,7 @@ class YOLOEVPPredictorMixin:
             cls_arrays: list of np.array，每个prompt的类别ID数组
             unified_nc: 统一的类别数量
             
-        Returns:
+       pad_and_align_vpe Returns:
             torch.Tensor: [unified_nc] 计数掩码，记录每个类别出现的次数
         """
         class_count_mask = torch.zeros(unified_nc, dtype=torch.float32)
@@ -363,35 +363,21 @@ class YOLOEVPPredictorMixin:
         return vpe
 
     def pad_and_align_vpe(self, vpe, unique_cls, unified_nc):
-        """将VPE填充到统一的类别空间
-        
-        Args:
-            vpe: torch.Tensor [batch, unique_nc, embed_dim] 单个prompt的VPE
-            unique_cls: np.array unique类别ID数组
-            unified_nc: int 统一的类别空间大小
-        """
+        """Fixed version with proper class alignment"""
         batch_size, vpe_nc, embed_dim = vpe.shape
         
-        print(f"[Debug] VPE填充: {vpe.shape} -> [{batch_size}, {unified_nc}, {embed_dim}]")
-        print(f"[Debug] Unique类别: {unique_cls}, VPE类别维度: {vpe_nc}")
-        
-        if len(unique_cls) != vpe_nc:
-            print(f"[Warning] Unique类别数({len(unique_cls)}) != VPE维度({vpe_nc})")
-        
-        # 创建统一大小的VPE
+        # Create aligned VPE tensor
         aligned_vpe = torch.zeros(batch_size, unified_nc, embed_dim, 
                                 device=vpe.device, dtype=vpe.dtype)
         
-        # 🔧 关键修正：按unique类别进行填充
-        # VPE的每个维度对应unique_cls中的每个类别
-        for vpe_idx, class_id in enumerate(unique_cls):
-            if vpe_idx < vpe_nc and 0 <= class_id < unified_nc:
-                aligned_vpe[:, class_id, :] = vpe[:, vpe_idx, :]
-                print(f"[Debug]   类别{class_id}: VPE维度{vpe_idx} -> 统一空间位置{class_id}")
-            elif vpe_idx >= vpe_nc:
-                print(f"[Debug]   类别{class_id}: 超出VPE维度范围 (VPE只有{vpe_nc}维)")
-            else:
-                print(f"[Debug]   类别{class_id}: 超出统一空间范围 (统一空间只有{unified_nc}维)")
+        # Handle case where we have more VPE channels than unique classes
+        num_classes_to_map = min(vpe_nc, len(unique_cls))
+        
+        for vpe_idx in range(num_classes_to_map):
+            if vpe_idx < len(unique_cls):
+                class_id = unique_cls[vpe_idx]
+                if 0 <= class_id < unified_nc:
+                    aligned_vpe[:, class_id, :] = vpe[:, vpe_idx, :]
         
         return aligned_vpe
 
